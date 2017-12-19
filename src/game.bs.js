@@ -3,33 +3,28 @@
 
 var PixiJs = require("pixi.js");
 
-function spriteToJs(param) {
-  return {
-          x: param[/* x */0],
-          y: param[/* y */1],
-          vx: param[/* vx */2],
-          vy: param[/* vy */3],
-          scale: param[/* scale */4]
-        };
+function rescale(sprite, x, y) {
+  var s = sprite.scale;
+  s.x = x;
+  s.y = y;
+  return /* () */0;
 }
 
-function spriteFromJs(param) {
-  return /* record */[
-          /* x */param.x,
-          /* y */param.y,
-          /* vx */param.vx,
-          /* vy */param.vy,
-          /* scale */param.scale
-        ];
+function position(sprite, x, y) {
+  sprite.x = x;
+  sprite.y = y;
+  return /* () */0;
 }
 
 function start() {
   console.log("hello");
   var app = new PixiJs.Application();
   var callback = function (_, resources) {
-    debugger;
     var t = resources.hero.texture;
     var myHero = new PixiJs.Sprite(t);
+    rescale(myHero, 0.2, 0.2);
+    var r = app.renderer;
+    position(myHero, r.width / 2, r.height / 2);
     app.stage.addChild(myHero);
     return /* () */0;
   };
@@ -38,7 +33,7 @@ function start() {
   return app;
 }
 
-exports.spriteToJs   = spriteToJs;
-exports.spriteFromJs = spriteFromJs;
-exports.start        = start;
+exports.rescale  = rescale;
+exports.position = position;
+exports.start    = start;
 /* pixi.js Not a pure module */
