@@ -16,8 +16,8 @@ let control(player, direction) : control = {
   pub stop = () => this#setMoving(false);
   pub tick = () => {
     switch moving^ {
-      | false => ()
-      | true => player#move(direction)
+      | false => player#degrade(direction)
+      | true => player#advance(direction)
     };
   };
 
@@ -52,15 +52,16 @@ let controller(player) = {
 
   pub tick = () => {
     List.iter(d => d#tick(), [down, up, left, right]);
+    player#tick();
   };
 
   pri control = d => {
     switch d {
-      | Character.Down => Control(down)
-      | Character.Up => Control(up)
-      | Character.Left => Control(left)
-      | Character.Right => Control(right)
-      | Character.None => None
+      | Commands.Move(Character.Down) => Control(down)
+      | Commands.Move(Character.Up) => Control(up)
+      | Commands.Move(Character.Left) => Control(left)
+      | Commands.Move(Character.Right) => Control(right)
+      | Commands.None => None
     };
   };
 }

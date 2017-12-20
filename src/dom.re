@@ -10,10 +10,10 @@ let listen = (name, h) => listen(window(), name, h);
 let keyMap = (e) => {
   let code = getKeyCode(e);
   switch code {
-    | 40 => Character.Down
-    | 38 => Character.Up
-    | 37 => Character.Left
-    | 39 => Character.Right
-    | _ => Character.None
+    | 40 => Commands.Move(Character.Down)
+    | 38 => Commands.Move(Character.Up)
+    | 37 => Commands.Move(Character.Left)
+    | 39 => Commands.Move(Character.Right)
+    | _ => Commands.None
   };
 };

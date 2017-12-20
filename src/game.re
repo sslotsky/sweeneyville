@@ -20,8 +20,8 @@ let start = () => {
       controller#move(d);
 
       switch d {
-        | (Character.Left) => Pixi.Sprite.rescale(myHero, -0.2, 0.2)
-        | (Character.Right) => Pixi.Sprite.rescale(myHero, 0.2, 0.2)
+        | Commands.Move(Character.Left) => Pixi.Sprite.rescale(myHero, -0.2, 0.2)
+        | Commands.Move(Character.Right) => Pixi.Sprite.rescale(myHero, 0.2, 0.2)
         | _ => ()
       };
     });

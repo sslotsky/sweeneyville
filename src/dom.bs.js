@@ -15,17 +15,17 @@ function keyMap(e) {
   var code = e.keyCode;
   var switcher = code - 37 | 0;
   if (switcher > 3 || switcher < 0) {
-    return /* None */4;
+    return /* None */0;
   } else {
     switch (switcher) {
       case 0 : 
-          return /* Left */2;
+          return /* Move */[/* Left */2];
       case 1 : 
-          return /* Up */0;
+          return /* Move */[/* Up */0];
       case 2 : 
-          return /* Right */3;
+          return /* Move */[/* Right */3];
       case 3 : 
-          return /* Down */1;
+          return /* Move */[/* Down */1];
       
     }
   }
