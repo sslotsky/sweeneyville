@@ -19,7 +19,20 @@ function start() {
     var controller = Controller$Sweenyville.controller(player);
     Dom$Sweenyville.listen("keydown", (function ($$event) {
             var d = Dom$Sweenyville.keyMap($$event);
-            return Caml_oo_curry.js2(-933174511, 3, controller, d);
+            Caml_oo_curry.js2(-933174511, 3, controller, d);
+            if (d >= 2) {
+              switch (d - 2 | 0) {
+                case 0 : 
+                    return Pixi$Sweenyville.Sprite[/* rescale */0](myHero, -0.2, 0.2);
+                case 1 : 
+                    return Pixi$Sweenyville.Sprite[/* rescale */0](myHero, 0.2, 0.2);
+                case 2 : 
+                    return /* () */0;
+                
+              }
+            } else {
+              return /* () */0;
+            }
           }));
     Dom$Sweenyville.listen("keyup", (function ($$event) {
             var d = Dom$Sweenyville.keyMap($$event);

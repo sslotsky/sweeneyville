@@ -3,7 +3,7 @@ let start = () => {
 
   let callback = (_, resources) => {
     let myHero = Pixi.App.loadHero(resources);
-    Pixi.Sprite.rescale(myHero, 0.2, 0.2);
+    Pixi.Sprite.rescale(myHero, 0.2,   0.2);
 
     let r = Pixi.App.renderer(app);
 
@@ -16,7 +16,14 @@ let start = () => {
 
     Dom.listen("keydown", event => {
       let d = Dom.keyMap(event);
+
       controller#move(d);
+
+      switch d {
+        | (Character.Left) => Pixi.Sprite.rescale(myHero, -0.2, 0.2)
+        | (Character.Right) => Pixi.Sprite.rescale(myHero, 0.2, 0.2)
+        | _ => ()
+      };
     });
 
     Dom.listen("keyup", event => {

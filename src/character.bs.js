@@ -115,8 +115,8 @@ function character(startX, startY) {
           env[2]
         ]];
       self[speed] = [/* tuple */[
-          1,
-          1
+          5,
+          5
         ]];
       self[d] = [/* Right */3];
       return self;

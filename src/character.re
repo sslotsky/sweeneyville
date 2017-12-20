@@ -15,7 +15,7 @@ type data = {
 
 let character(startX, startY) = {
   val position = ref((startX, startY));
-  val speed = ref((1, 1));
+  val speed = ref((5, 5));
   val d = ref(Right);
 
   pub move = (direction: direction) => {

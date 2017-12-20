@@ -11,10 +11,6 @@ function listen(name, h) {
   return /* () */0;
 }
 
-function keycode($$event) {
-  return $$event.keyCode;
-}
-
 function keyMap(e) {
   var code = e.keyCode;
   var switcher = code - 37 | 0;
@@ -37,6 +33,5 @@ function keyMap(e) {
 
 exports.$$window = $$window$1;
 exports.listen   = listen;
-exports.keycode  = keycode;
 exports.keyMap   = keyMap;
 /* No side effect */

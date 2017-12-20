@@ -11,6 +11,7 @@ function rescale(sprite, x, y) {
 }
 
 function position(sprite, x, y) {
+  sprite.anchor.x = 0.5;
   sprite.x = x;
   sprite.y = y;
   return /* () */0;

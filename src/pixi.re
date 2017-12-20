@@ -1,10 +1,14 @@
 type scale;
+type anchor;
 type sprite;
 [@bs.set] external setX : (sprite, int) => unit = "x";
 [@bs.set] external setY : (sprite, int) => unit = "y";
 [@bs.get] external getScale : (sprite) => scale = "scale";
+[@bs.get] external getScaleX : (scale) => float = "x";
 [@bs.set] external scaleX : (scale, float) => unit = "x";
 [@bs.set] external scaleY : (scale, float) => unit = "y";
+[@bs.get] external getAnchor : (sprite) => anchor = "anchor";
+[@bs.set] external anchorX : (anchor, float) => unit = "x";
 
 module Sprite = {
   let rescale = (sprite: sprite, x: float, y: float) => {
@@ -14,6 +18,7 @@ module Sprite = {
   };
 
   let position = (sprite: sprite, x: int, y: int) => {
+    anchorX(getAnchor(sprite), 0.5);
     setX(sprite, x);
     setY(sprite, y);
   };
