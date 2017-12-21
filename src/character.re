@@ -12,31 +12,6 @@ type data = {
   direction: direction
 };
 
-let max = (a:int, b:int) => {
-  let leftGreater = a > b;
-
-  switch leftGreater {
-    | true => a
-    | false => b
-  };
-};
-
-let min = (a:int, b:int) => {
-  let leftGreater = a > b;
-
-  switch leftGreater {
-    | true => b
-    | false => a
-  };
-};
-
-let doIf = (condition, block: unit => unit) => {
-  switch condition {
-    | true => block()
-    | false => ()
-  };
-};
-
 let character(startX, startY) = {
   val maxSpeed = ref(15);
   val position = ref((startX, startY));
@@ -67,10 +42,10 @@ let character(startX, startY) = {
   pub degrade = (direction) => {
     let (vx, vy) = speed^;
     switch direction {
-      | Right => doIf(vx > 0, () => speed := (max(vx - 1, 0), vy))
-      | Left => doIf(vx < 0, () => speed := (min(vx + 1, 0), vy))
-      | Up => doIf(vy < 0, () => speed := (vx, min(vy + 1, 0)))
-      | Down => doIf(vy > 0, () => speed := (vx, max(vy - 1, 0)))
+      | Right => this#setSpeedIf(vx > 0, max(vx - 1, 0), vy)
+      | Left => this#setSpeedIf(vx < 0, min(vx + 1, 0), vy)
+      | Up => this#setSpeedIf(vy < 0, vx, min(vy + 1, 0))
+      | Down => this#setSpeedIf(vy > 0, vx, max(vy - 1, 0))
     };
   };
 
@@ -85,6 +60,12 @@ let character(startX, startY) = {
       vy: vy,
       direction: d^
     };
+  };
+
+  pri setSpeedIf = (going, vx, vy) => {
+    if (going) {
+      speed := (vx, vy);
+    }
   };
 
   pri turn = (direction) => {

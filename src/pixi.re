@@ -45,22 +45,26 @@ type stage;
 type textureLoader;
 type resources;
 type resource;
-[@bs.send] external addTexture : (textureLoader, string, string) => textureLoader = "add";
+[@bs.send] external addTexture : (textureLoader, string) => textureLoader = "add";
 [@bs.send] external loadTexture : (textureLoader, (textureLoader, resources) => unit) => unit = "load";
-[@bs.get] external heroSprite : (resources) => resource = "hero";
-[@bs.get] external heroTexture : (resource) => texture = "texture";
+[@bs.get] external getTexture : (resource) => texture = "texture";
+[@bs.get_index] external getResource : (resources, string) => resource = "";
 
 [@bs.module "pixi.js"] external loader : textureLoader = "loader";
 
 module App = {
   let start = pixify;
 
-  let loadTexture = (name, path, callback) => {
-    loadTexture(addTexture(loader, name, path), callback);
+  let addTexture = addTexture;
+
+  let getTexture = getTexture;
+
+  let loadTexture = (path, callback) => {
+    loadTexture(addTexture(loader, path), callback);
   };
 
-  let loadHero = (resources) => {
-    createSprite(heroTexture(heroSprite(resources)));
+  let fetchSprite = (resources, path) => {
+    createSprite(getTexture(getResource(resources, path)));
   };
 
   let addTicker = (app, tick) => addTicker(ticker(app), tick);

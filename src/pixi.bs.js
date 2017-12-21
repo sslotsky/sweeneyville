@@ -26,13 +26,21 @@ function start() {
   return new PixiJs.Application();
 }
 
-function loadTexture(name, path, callback) {
-  PixiJs.loader.add(name, path).load(callback);
+function addTexture(prim, prim$1) {
+  return prim.add(prim$1);
+}
+
+function getTexture(prim) {
+  return prim.texture;
+}
+
+function loadTexture(path, callback) {
+  PixiJs.loader.add(path).load(callback);
   return /* () */0;
 }
 
-function loadHero(resources) {
-  return new PixiJs.Sprite(resources.hero.texture);
+function fetchSprite(resources, path) {
+  return new PixiJs.Sprite(resources[path].texture);
 }
 
 function addTicker(app, tick) {
@@ -59,8 +67,10 @@ function addSprite(app, sprite) {
 
 var App = /* module */[
   /* start */start,
+  /* addTexture */addTexture,
+  /* getTexture */getTexture,
   /* loadTexture */loadTexture,
-  /* loadHero */loadHero,
+  /* fetchSprite */fetchSprite,
   /* addTicker */addTicker,
   /* renderer */renderer,
   /* width */width,
