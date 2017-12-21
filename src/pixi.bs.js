@@ -46,16 +46,16 @@ function texture(name) {
   return loader.resources[name].texture;
 }
 
-function loadTextures(paths, callback) {
+function load_textures(paths, callback) {
   loader.add(paths).load(callback);
   return /* () */0;
 }
 
-function fetchSprite(resources, path) {
+function fetch_sprite(resources, path) {
   return new PixiJs.Sprite(resources[path].texture);
 }
 
-function addTicker(app, tick) {
+function add_ticker(app, tick) {
   app.ticker.add(tick);
   return /* () */0;
 }
@@ -83,9 +83,9 @@ var App = /* module */[
   /* getTexture */getTexture,
   /* resource */resource,
   /* texture */texture,
-  /* loadTextures */loadTextures,
-  /* fetchSprite */fetchSprite,
-  /* addTicker */addTicker,
+  /* load_textures */load_textures,
+  /* fetch_sprite */fetch_sprite,
+  /* add_ticker */add_ticker,
   /* renderer */renderer,
   /* width */width,
   /* height */height,

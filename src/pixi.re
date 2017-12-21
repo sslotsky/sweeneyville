@@ -2,8 +2,8 @@ type scale;
 type anchor;
 type sprite;
 type texture;
-[@bs.set] external setX : (sprite, int) => unit = "x";
-[@bs.set] external setY : (sprite, int) => unit = "y";
+[@bs.set] external setX : (sprite, float) => unit = "x";
+[@bs.set] external setY : (sprite, float) => unit = "y";
 [@bs.get] external getScale : (sprite) => scale = "scale";
 [@bs.get] external getScaleX : (scale) => float = "x";
 [@bs.set] external scaleX : (scale, float) => unit = "x";
@@ -19,7 +19,7 @@ module Sprite = {
     scaleY(s, y);
   };
 
-  let position = (sprite: sprite, x: int, y: int) => {
+  let position = (sprite: sprite, x: float, y: float) => {
     anchorX(getAnchor(sprite), 0.5);
     setX(sprite, x);
     setY(sprite, y);
@@ -67,15 +67,15 @@ module App = {
 
   let texture = name => getTexture(resource(name));
 
-  let loadTextures = (paths, callback) => {
+  let load_textures = (paths, callback) => {
     loadTextures(addTextures(loader, paths), callback);
   };
 
-  let fetchSprite = (resources, path) => {
+  let fetch_sprite = (resources, path) => {
     createSprite(getTexture(getResource(resources, path)));
   };
 
-  let addTicker = (app, tick) => addTicker(ticker(app), tick);
+  let add_ticker = (app, tick) => addTicker(ticker(app), tick);
   let renderer = getRenderer;
   let width = width;
   let height = height;

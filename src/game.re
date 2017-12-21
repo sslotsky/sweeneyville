@@ -1,66 +1,65 @@
 let start = () => {
   let app = Pixi.App.start();
 
-  let textureName = (sequence, frame) =>
+  let texture_name = (sequence, frame) =>
    "images/hero/" ++ sequence ++ " (" ++ string_of_int(frame) ++ ").png";
 
-  let frameSequence = (name, numFrames) =>
-    Array.map(n => textureName(name, n), Reasonable.range(1, numFrames));
+  let frame_sequence = (name, num_frames) =>
+    Array.map(n => texture_name(name, n), Reasonable.range(1, num_frames));
 
   let textures = Array.append(
-    frameSequence("Idle", 16),
-    frameSequence("Run", 20)
+    frame_sequence("Idle", 16),
+    frame_sequence("Run", 20)
   );
 
 
   let callback = (_, resources) => {
-    let myHero = Pixi.App.fetchSprite(resources, "images/hero/Idle (1).png");
-    Pixi.Sprite.rescale(myHero, 0.2,   0.2);
+    let my_hero = Pixi.App.fetch_sprite(resources, "images/hero/Idle (1).png");
+    Pixi.Sprite.rescale(my_hero, 0.2,   0.2);
 
     let r = Pixi.App.renderer(app);
 
-    let player = Character.character(Pixi.App.width(r) / 2, Pixi.App.height(r) / 2);
+    let player = Character.character(float_of_int(Pixi.App.width(r) / 2), float_of_int(Pixi.App.height(r) / 2));
 
-    let path = name => frame => textureName(name, frame);
+    let path = name => frame => texture_name(name, frame);
 
     let map: Animation.sequence_map = {
-      idle: Animation.SequenceInfo(16, path("Idle")),
-      running: Animation.SequenceInfo(20, path("Run"))
+      idle: (16, path("Idle")),
+      running: (20, path("Run"))
     };
 
-    let animator = Animation.animator(player, myHero, map);
+    let animator = Animation.animator(player, my_hero, map);
 
-    Pixi.Sprite.position(myHero, player#data().x, player#data().y);
-    Pixi.App.addSprite(app, myHero);
+    Pixi.App.addSprite(app, my_hero);
 
     let controller = Controller.controller(player);
 
     Dom.listen("keydown", event => {
-      let d = Dom.keyMap(event);
+      let d = Dom.key_map(event);
 
       controller#move(d);
 
       switch d {
-        | Commands.Move(Character.Left) => Pixi.Sprite.rescale(myHero, -0.2, 0.2)
-        | Commands.Move(Character.Right) => Pixi.Sprite.rescale(myHero, 0.2, 0.2)
+        | Commands.Move(Character.Left) => Pixi.Sprite.rescale(my_hero, -0.2, 0.2)
+        | Commands.Move(Character.Right) => Pixi.Sprite.rescale(my_hero, 0.2, 0.2)
         | _ => ()
       };
     });
 
     Dom.listen("keyup", event => {
-      let d = Dom.keyMap(event);
+      let d = Dom.key_map(event);
       controller#stop(d);
     });
 
-    Pixi.App.addTicker(app, (_) => {
+    Pixi.App.add_ticker(app, (_) => {
       controller#tick();
       let data = player#data();
-      Pixi.Sprite.position(myHero, data.x, data.y);
+      Pixi.Sprite.position(my_hero, data.x, data.y);
 
       animator#tick();
     });
   };
 
-  Pixi.App.loadTextures(textures, callback);
+  Pixi.App.load_textures(textures, callback);
   app;
 };

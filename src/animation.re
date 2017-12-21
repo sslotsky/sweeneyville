@@ -2,7 +2,7 @@ type sequence =
   | Running
   | Idle;
 
-type sequence_info = | SequenceInfo(int, int => string);
+type sequence_info = (int, int => string);
 
 type sequence_map = {
   idle: sequence_info,
@@ -16,7 +16,7 @@ let animator(player, sprite, map: sequence_map) = {
 
   pub tick = () => {
     ticks := ticks^ + 1;
-    if (ticks^ == 10) {
+    if (ticks^ == 3) {
       this#animate();
       ticks := 0;
     }
@@ -24,7 +24,7 @@ let animator(player, sprite, map: sequence_map) = {
 
   pri animate = () => {
     let (d: Character.data) = player#data();
-    let moving = d.vx != 0 || d.vy != 0;
+    let moving = d.vx != 0.0 || d.vy != 0.0;
     let nextSeq = moving ? Running : Idle;
 
     if (nextSeq != seq^) {
@@ -45,10 +45,8 @@ let animator(player, sprite, map: sequence_map) = {
   };
 
   pri maxFrames = () => {
-    let info = this#current_info();
-    switch info {
-      | SequenceInfo(frame, _) => frame
-    };
+    let (frame, _) = this#current_info();
+    frame;
   };
 
   pri updateTexture = () => {
@@ -57,10 +55,8 @@ let animator(player, sprite, map: sequence_map) = {
       | Running => map.running
     };
 
-    let path = switch info {
-      | SequenceInfo(_, getPath) => getPath(frame^)
-    };
+    let (_, getPath) = this#current_info();
 
-    Pixi.Sprite.setTexture(sprite, Pixi.App.texture(path));
+    Pixi.Sprite.setTexture(sprite, Pixi.App.texture(getPath(frame^)));
   };
 };

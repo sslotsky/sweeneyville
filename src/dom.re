@@ -7,7 +7,7 @@ type event;
 let window = () => window;
 let listen = (name, h) => listen(window(), name, h);
 
-let keyMap = (e) => {
+let key_map = (e) => {
   let code = getKeyCode(e);
   switch code {
     | 40 => Commands.Move(Character.Down)

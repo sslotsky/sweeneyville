@@ -51,8 +51,8 @@ function character(startX, startY) {
               var match = self$1[position][0];
               var match$1 = self$1[speed][0];
               self$1[position][0] = /* tuple */[
-                match[0] + match$1[0] | 0,
-                match[1] + match$1[1] | 0
+                match[0] + match$1[0],
+                match[1] + match$1[1]
               ];
               return /* () */0;
             }),
@@ -73,24 +73,24 @@ function character(startX, startY) {
                 case 0 : 
                     self$1[speed][0] = /* tuple */[
                       vx,
-                      Pervasives.max(vy - 1 | 0, -self$1[maxSpeed][0] | 0)
+                      Pervasives.max(vy - 0.2, 0.0 - self$1[maxSpeed][0])
                     ];
                     return /* () */0;
                 case 1 : 
                     self$1[speed][0] = /* tuple */[
                       vx,
-                      Pervasives.min(vy + 1 | 0, self$1[maxSpeed][0])
+                      Pervasives.min(vy + 0.2, self$1[maxSpeed][0])
                     ];
                     return /* () */0;
                 case 2 : 
                     self$1[speed][0] = /* tuple */[
-                      Pervasives.max(vx - 1 | 0, -self$1[maxSpeed][0] | 0),
+                      Pervasives.max(vx - 0.2, 0.0 - self$1[maxSpeed][0]),
                       vy
                     ];
                     return /* () */0;
                 case 3 : 
                     self$1[speed][0] = /* tuple */[
-                      Pervasives.min(vx + 1 | 0, self$1[maxSpeed][0]),
+                      Pervasives.min(vx + 0.2, self$1[maxSpeed][0]),
                       vy
                     ];
                     return /* () */0;
@@ -104,13 +104,13 @@ function character(startX, startY) {
               var vx = match[0];
               switch (direction) {
                 case 0 : 
-                    return Curry._4(self$1[0][setSpeedIf], self$1, +(vy < 0), vx, Pervasives.min(vy + 1 | 0, 0));
+                    return Curry._4(self$1[0][setSpeedIf], self$1, +(vy < 0.0), vx, Pervasives.min(vy + 0.2, 0.0));
                 case 1 : 
-                    return Curry._4(self$1[0][setSpeedIf], self$1, +(vy > 0), vx, Pervasives.max(vy - 1 | 0, 0));
+                    return Curry._4(self$1[0][setSpeedIf], self$1, +(vy > 0.0), vx, Pervasives.max(vy - 0.2, 0.0));
                 case 2 : 
-                    return Curry._4(self$1[0][setSpeedIf], self$1, +(vx < 0), Pervasives.min(vx + 1 | 0, 0), vy);
+                    return Curry._4(self$1[0][setSpeedIf], self$1, +(vx < 0.0), Pervasives.min(vx + 0.2, 0.0), vy);
                 case 3 : 
-                    return Curry._4(self$1[0][setSpeedIf], self$1, +(vx > 0), Pervasives.max(vx - 1 | 0, 0), vy);
+                    return Curry._4(self$1[0][setSpeedIf], self$1, +(vx > 0.0), Pervasives.max(vx - 0.2, 0.0), vy);
                 
               }
             }),
@@ -146,14 +146,14 @@ function character(startX, startY) {
         ]);
     var env_init = function (env) {
       var self = CamlinternalOO.create_object_opt(0, $$class);
-      self[maxSpeed] = [15];
+      self[maxSpeed] = [8.0];
       self[position] = [/* tuple */[
           env[1],
           env[2]
         ]];
       self[speed] = [/* tuple */[
-          0,
-          0
+          0.0,
+          0.0
         ]];
       self[d] = [/* Right */3];
       return self;

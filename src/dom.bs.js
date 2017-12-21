@@ -11,7 +11,7 @@ function listen(name, h) {
   return /* () */0;
 }
 
-function keyMap(e) {
+function key_map(e) {
   var code = e.keyCode;
   var switcher = code - 37 | 0;
   if (switcher > 3 || switcher < 0) {
@@ -33,5 +33,5 @@ function keyMap(e) {
 
 exports.$$window = $$window$1;
 exports.listen   = listen;
-exports.keyMap   = keyMap;
+exports.key_map  = key_map;
 /* No side effect */

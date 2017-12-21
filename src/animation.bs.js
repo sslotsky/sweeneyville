@@ -39,7 +39,7 @@ function animator(player, sprite, map) {
           tick,
           (function (self$1, _) {
               self$1[ticks][0] = self$1[ticks][0] + 1 | 0;
-              if (self$1[ticks][0] === 10) {
+              if (self$1[ticks][0] === 3) {
                 Curry._2(self$1[0][animate], self$1, /* () */0);
                 self$1[ticks][0] = 0;
                 return /* () */0;
@@ -51,7 +51,7 @@ function animator(player, sprite, map) {
           (function (self$1, _) {
               var tmp = self$1[env][2];
               var d = Caml_oo_curry.js2(-1033677270, 2, tmp, /* () */0);
-              var moving = +(d[/* vx */2] !== 0 || d[/* vy */3] !== 0);
+              var moving = +(d[/* vx */2] !== 0.0 || d[/* vy */3] !== 0.0);
               var nextSeq = moving !== 0 ? /* Running */0 : /* Idle */1;
               if (nextSeq !== self$1[seq][0]) {
                 self$1[frame][0] = 1;
@@ -78,11 +78,8 @@ function animator(player, sprite, map) {
             }),
           updateTexture,
           (function (self$1, _) {
-              var env$1 = self$1[env];
-              var match = self$1[seq][0];
-              var info = match !== 0 ? env$1[1][/* idle */0] : env$1[1][/* running */1];
-              var path = Curry._1(info[1], self$1[frame][0]);
-              return Pixi$Sweenyville.Sprite[/* setTexture */2](env$1[0], Pixi$Sweenyville.App[/* texture */4](path));
+              var match = Curry._2(self$1[0][current_info], self$1, /* () */0);
+              return Pixi$Sweenyville.Sprite[/* setTexture */2](self$1[env][0], Pixi$Sweenyville.App[/* texture */4](Curry._1(match[1], self$1[frame][0])));
             })
         ]);
     var env_init = function (env$1) {
