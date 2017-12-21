@@ -50,11 +50,6 @@ let animator(player, sprite, map: sequence_map) = {
   };
 
   pri updateTexture = () => {
-    let info = switch seq^ {
-      | Idle => map.idle
-      | Running => map.running
-    };
-
     let (_, getPath) = this#current_info();
 
     Pixi.Sprite.setTexture(sprite, Pixi.App.texture(getPath(frame^)));

@@ -4,12 +4,12 @@
 var $$Array                = require("bs-platform/lib/js/array.js");
 var Pervasives             = require("bs-platform/lib/js/pervasives.js");
 var Caml_oo_curry          = require("bs-platform/lib/js/caml_oo_curry.js");
-var Dom$Sweenyville        = require("./dom.bs.js");
-var Pixi$Sweenyville       = require("./pixi.bs.js");
-var Animation$Sweenyville  = require("./animation.bs.js");
-var Character$Sweenyville  = require("./character.bs.js");
-var Controller$Sweenyville = require("./controller.bs.js");
-var Reasonable$Sweenyville = require("./reasonable.bs.js");
+var Dom$Sweenyville        = require("./engine/dom.bs.js");
+var Pixi$Sweenyville       = require("./engine/pixi.bs.js");
+var Animation$Sweenyville  = require("./engine/animation.bs.js");
+var Character$Sweenyville  = require("./game/character.bs.js");
+var Controller$Sweenyville = require("./game/controller.bs.js");
+var Reasonable$Sweenyville = require("./lib/reasonable.bs.js");
 
 function start() {
   var app = Pixi$Sweenyville.App[/* start */0](/* () */0);
