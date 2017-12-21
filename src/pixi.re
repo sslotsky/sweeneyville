@@ -1,6 +1,7 @@
 type scale;
 type anchor;
 type sprite;
+type texture;
 [@bs.set] external setX : (sprite, int) => unit = "x";
 [@bs.set] external setY : (sprite, int) => unit = "y";
 [@bs.get] external getScale : (sprite) => scale = "scale";
@@ -9,6 +10,7 @@ type sprite;
 [@bs.set] external scaleY : (scale, float) => unit = "y";
 [@bs.get] external getAnchor : (sprite) => anchor = "anchor";
 [@bs.set] external anchorX : (anchor, float) => unit = "x";
+[@bs.set] external setTexture: (sprite, texture) => unit = "texture";
 
 module Sprite = {
   let rescale = (sprite: sprite, x: float, y: float) => {
@@ -22,9 +24,10 @@ module Sprite = {
     setX(sprite, x);
     setY(sprite, y);
   };
+
+  let setTexture = setTexture;
 };
 
-type texture;
 [@bs.new] [@bs.module "pixi.js"] external createSprite: texture => sprite = "Sprite";
 
 type pixiApp;
@@ -45,22 +48,27 @@ type stage;
 type textureLoader;
 type resources;
 type resource;
-[@bs.send] external addTexture : (textureLoader, string) => textureLoader = "add";
-[@bs.send] external loadTexture : (textureLoader, (textureLoader, resources) => unit) => unit = "load";
+[@bs.send] external addTextures : (textureLoader, array(string)) => textureLoader = "add";
+[@bs.send] external loadTextures : (textureLoader, (textureLoader, resources) => unit) => unit = "load";
 [@bs.get] external getTexture : (resource) => texture = "texture";
 [@bs.get_index] external getResource : (resources, string) => resource = "";
 
 [@bs.module "pixi.js"] external loader : textureLoader = "loader";
+[@bs.get] external getResources : textureLoader => resources = "resources";
 
 module App = {
   let start = pixify;
 
-  let addTexture = addTexture;
+  let loader = loader;
 
   let getTexture = getTexture;
 
-  let loadTexture = (path, callback) => {
-    loadTexture(addTexture(loader, path), callback);
+  let resource = name => getResource(getResources(loader), name);
+
+  let texture = name => getTexture(resource(name));
+
+  let loadTextures = (paths, callback) => {
+    loadTextures(addTextures(loader, paths), callback);
   };
 
   let fetchSprite = (resources, path) => {

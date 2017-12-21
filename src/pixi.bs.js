@@ -17,25 +17,37 @@ function position(sprite, x, y) {
   return /* () */0;
 }
 
+function setTexture(prim, prim$1) {
+  prim.texture = prim$1;
+  return /* () */0;
+}
+
 var Sprite = /* module */[
   /* rescale */rescale,
-  /* position */position
+  /* position */position,
+  /* setTexture */setTexture
 ];
 
 function start() {
   return new PixiJs.Application();
 }
 
-function addTexture(prim, prim$1) {
-  return prim.add(prim$1);
-}
+var loader = PixiJs.loader;
 
 function getTexture(prim) {
   return prim.texture;
 }
 
-function loadTexture(path, callback) {
-  PixiJs.loader.add(path).load(callback);
+function resource(name) {
+  return loader.resources[name];
+}
+
+function texture(name) {
+  return loader.resources[name].texture;
+}
+
+function loadTextures(paths, callback) {
+  loader.add(paths).load(callback);
   return /* () */0;
 }
 
@@ -67,9 +79,11 @@ function addSprite(app, sprite) {
 
 var App = /* module */[
   /* start */start,
-  /* addTexture */addTexture,
+  /* loader */loader,
   /* getTexture */getTexture,
-  /* loadTexture */loadTexture,
+  /* resource */resource,
+  /* texture */texture,
+  /* loadTextures */loadTextures,
   /* fetchSprite */fetchSprite,
   /* addTicker */addTicker,
   /* renderer */renderer,
@@ -80,4 +94,4 @@ var App = /* module */[
 
 exports.Sprite = Sprite;
 exports.App    = App;
-/* pixi.js Not a pure module */
+/* loader Not a pure module */

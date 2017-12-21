@@ -1,6 +1,18 @@
 let start = () => {
   let app = Pixi.App.start();
 
+  let textureName = (sequence, frame) =>
+   "images/hero/" ++ sequence ++ " (" ++ string_of_int(frame) ++ ").png";
+
+  let frameSequence = (name, numFrames) =>
+    Array.map(n => textureName(name, n), Reasonable.range(1, numFrames));
+
+  let textures = Array.append(
+    frameSequence("Idle", 16),
+    frameSequence("Run", 20)
+  );
+
+
   let callback = (_, resources) => {
     let myHero = Pixi.App.fetchSprite(resources, "images/hero/Idle (1).png");
     Pixi.Sprite.rescale(myHero, 0.2,   0.2);
@@ -8,7 +20,15 @@ let start = () => {
     let r = Pixi.App.renderer(app);
 
     let player = Character.character(Pixi.App.width(r) / 2, Pixi.App.height(r) / 2);
-    let animator = Animation.animator(player, myHero);
+
+    let path = name => frame => textureName(name, frame);
+
+    let map: Animation.sequence_map = {
+      idle: Animation.SequenceInfo(16, path("Idle")),
+      running: Animation.SequenceInfo(20, path("Run"))
+    };
+
+    let animator = Animation.animator(player, myHero, map);
 
     Pixi.Sprite.position(myHero, player#data().x, player#data().y);
     Pixi.App.addSprite(app, myHero);
@@ -41,8 +61,6 @@ let start = () => {
     });
   };
 
-  let r = Reasonable.range(1, 16);
-  Js.log(r);
-  Pixi.App.loadTexture("images/hero/Idle (1).png", callback);
+  Pixi.App.loadTextures(textures, callback);
   app;
 };
