@@ -12,7 +12,16 @@ type data = {
   direction: direction
 };
 
-let character(startX, startY) = {
+type character = {
+  .
+  tick: unit => unit,
+  place: (float, float) => unit,
+  advance: direction => unit,
+  degrade: direction => unit,
+  data: unit => data
+};
+
+let character(startX, startY): character = {
   val maxSpeed = ref(8.0);
   val position = ref((startX, startY));
   val speed = ref((0.0, 0.0));

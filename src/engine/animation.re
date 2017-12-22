@@ -31,10 +31,10 @@ let animator(player, sprite, map: sequence_map) = {
       frame := 1;
       seq := nextSeq;
     } else {
-      frame := frame^ == this#maxFrames() ? 1 : frame^ + 1;
+      frame := frame^ == this#max_frames() ? 1 : frame^ + 1;
     };
 
-    this#updateTexture();
+    this#update_texture();
   };
 
   pri current_info = () => {
@@ -44,14 +44,14 @@ let animator(player, sprite, map: sequence_map) = {
     };
   };
 
-  pri maxFrames = () => {
+  pri max_frames = () => {
     let (frame, _) = this#current_info();
     frame;
   };
 
-  pri updateTexture = () => {
-    let (_, getPath) = this#current_info();
+  pri update_texture = () => {
+    let (_, get_path) = this#current_info();
 
-    Pixi.Sprite.setTexture(sprite, Pixi.App.texture(getPath(frame^)));
+    Pixi.Sprite.setTexture(sprite, Pixi.App.texture(get_path(frame^)));
   };
 };

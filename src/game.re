@@ -19,7 +19,7 @@ let start = () => {
 
     let r = Pixi.App.renderer(app);
 
-    let player = Character.character(float_of_int(Pixi.App.width(r) / 2), float_of_int(Pixi.App.height(r) / 2));
+    let player = Character.character(0.0, 0.0);
 
     let path = name => frame => texture_name(name, frame);
 
@@ -51,10 +51,16 @@ let start = () => {
       controller#stop(d);
     });
 
+    let camera = Camera.camera;
+
     Pixi.App.add_ticker(app, (_) => {
+      let (centerX, centerY) = (float_of_int(Pixi.App.width(r) / 2), float_of_int(Pixi.App.height(r) / 2));
       controller#tick();
+      camera#tick();
       let data = player#data();
-      Pixi.Sprite.position(my_hero, data.x, data.y);
+      let (cameraX, cameraY) = camera#position();
+      let (x, y) = (centerX +. (data.x -. cameraX), centerY +. (data.y -. cameraY));
+      Pixi.Sprite.position(my_hero, x, y);
 
       animator#tick();
     });

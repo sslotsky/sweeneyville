@@ -17,9 +17,9 @@ function animator(player, sprite, map) {
     var $$class = CamlinternalOO.create_table(["tick"]);
     var env = CamlinternalOO.new_variable($$class, "");
     var ids = CamlinternalOO.new_methods_variables($$class, [
-          "updateTexture",
+          "update_texture",
           "tick",
-          "maxFrames",
+          "max_frames",
           "current_info",
           "animate"
         ], [
@@ -27,9 +27,9 @@ function animator(player, sprite, map) {
           "frame",
           "seq"
         ]);
-    var updateTexture = ids[0];
+    var update_texture = ids[0];
     var tick = ids[1];
-    var maxFrames = ids[2];
+    var max_frames = ids[2];
     var current_info = ids[3];
     var animate = ids[4];
     var ticks = ids[5];
@@ -57,10 +57,10 @@ function animator(player, sprite, map) {
                 self$1[frame][0] = 1;
                 self$1[seq][0] = nextSeq;
               } else {
-                var match = +(self$1[frame][0] === Curry._2(self$1[0][maxFrames], self$1, /* () */0));
+                var match = +(self$1[frame][0] === Curry._2(self$1[0][max_frames], self$1, /* () */0));
                 self$1[frame][0] = match !== 0 ? 1 : self$1[frame][0] + 1 | 0;
               }
-              return Curry._2(self$1[0][updateTexture], self$1, /* () */0);
+              return Curry._2(self$1[0][update_texture], self$1, /* () */0);
             }),
           current_info,
           (function (self$1, _) {
@@ -72,11 +72,11 @@ function animator(player, sprite, map) {
                 return env$1[1][/* running */1];
               }
             }),
-          maxFrames,
+          max_frames,
           (function (self$1, _) {
               return Curry._2(self$1[0][current_info], self$1, /* () */0)[0];
             }),
-          updateTexture,
+          update_texture,
           (function (self$1, _) {
               var match = Curry._2(self$1[0][current_info], self$1, /* () */0);
               return Pixi$Sweenyville.Sprite[/* setTexture */2](self$1[env][0], Pixi$Sweenyville.App[/* texture */4](Curry._1(match[1], self$1[frame][0])));

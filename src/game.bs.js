@@ -6,6 +6,7 @@ var Pervasives             = require("bs-platform/lib/js/pervasives.js");
 var Caml_oo_curry          = require("bs-platform/lib/js/caml_oo_curry.js");
 var Dom$Sweenyville        = require("./engine/dom.bs.js");
 var Pixi$Sweenyville       = require("./engine/pixi.bs.js");
+var Camera$Sweenyville     = require("./game/camera.bs.js");
 var Animation$Sweenyville  = require("./engine/animation.bs.js");
 var Character$Sweenyville  = require("./game/character.bs.js");
 var Controller$Sweenyville = require("./game/controller.bs.js");
@@ -26,7 +27,7 @@ function start() {
     var my_hero = Pixi$Sweenyville.App[/* fetch_sprite */6](resources, "images/hero/Idle (1).png");
     Pixi$Sweenyville.Sprite[/* rescale */0](my_hero, 0.2, 0.2);
     var r = Pixi$Sweenyville.App[/* renderer */8](app);
-    var player = Character$Sweenyville.character(Pixi$Sweenyville.App[/* width */9](r) / 2 | 0, Pixi$Sweenyville.App[/* height */10](r) / 2 | 0);
+    var player = Character$Sweenyville.character(0.0, 0.0);
     var map_000 = /* idle : tuple */[
       16,
       (function (param) {
@@ -69,10 +70,16 @@ function start() {
             return Caml_oo_curry.js2(-866390014, 2, controller, d);
           }));
     return Pixi$Sweenyville.App[/* add_ticker */7](app, (function () {
+                  var match_000 = Pixi$Sweenyville.App[/* width */9](r) / 2 | 0;
+                  var match_001 = Pixi$Sweenyville.App[/* height */10](r) / 2 | 0;
                   Caml_oo_curry.js2(-855850147, 3, controller, /* () */0);
-                  var data = Caml_oo_curry.js2(-1033677270, 4, player, /* () */0);
-                  Pixi$Sweenyville.Sprite[/* position */1](my_hero, data[/* x */0], data[/* y */1]);
-                  return Caml_oo_curry.js2(-855850147, 5, animator, /* () */0);
+                  Caml_oo_curry.js2(-855850147, 4, Camera$Sweenyville.camera, /* () */0);
+                  var data = Caml_oo_curry.js2(-1033677270, 5, player, /* () */0);
+                  var match = Caml_oo_curry.js2(-889544535, 6, Camera$Sweenyville.camera, /* () */0);
+                  var match_000$1 = match_000 + (data[/* x */0] - match[0]);
+                  var match_001$1 = match_001 + (data[/* y */1] - match[1]);
+                  Pixi$Sweenyville.Sprite[/* position */1](my_hero, match_000$1, match_001$1);
+                  return Caml_oo_curry.js2(-855850147, 7, animator, /* () */0);
                 }));
   };
   Pixi$Sweenyville.App[/* load_textures */5](textures, callback);
