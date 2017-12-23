@@ -2,54 +2,71 @@
 'use strict';
 
 var $$Array                = require("bs-platform/lib/js/array.js");
-var Pervasives             = require("bs-platform/lib/js/pervasives.js");
 var Caml_oo_curry          = require("bs-platform/lib/js/caml_oo_curry.js");
 var Dom$Sweenyville        = require("./engine/dom.bs.js");
+var Hero$Sweenyville       = require("./engine/hero.bs.js");
 var Pixi$Sweenyville       = require("./engine/pixi.bs.js");
+var Spawn$Sweenyville      = require("./engine/spawn.bs.js");
 var Camera$Sweenyville     = require("./game/camera.bs.js");
-var Animation$Sweenyville  = require("./engine/animation.bs.js");
-var Character$Sweenyville  = require("./game/character.bs.js");
+var Predator$Sweenyville   = require("./engine/predator.bs.js");
 var Controller$Sweenyville = require("./game/controller.bs.js");
-var Reasonable$Sweenyville = require("./lib/reasonable.bs.js");
 
 function start() {
   var app = Pixi$Sweenyville.App[/* start */0](/* () */0);
-  var texture_name = function (sequence, frame) {
-    return "images/hero/" + (sequence + (" (" + (Pervasives.string_of_int(frame) + ").png")));
-  };
-  var frame_sequence = function (name, num_frames) {
-    return $$Array.map((function (n) {
-                  return texture_name(name, n);
-                }), Reasonable$Sweenyville.range(1, num_frames));
-  };
-  var textures = $$Array.append(frame_sequence("Idle", 16), frame_sequence("Run", 20));
-  var callback = function (_, resources) {
-    var my_hero = Pixi$Sweenyville.App[/* fetch_sprite */6](resources, "images/hero/Idle (1).png");
+  var textures = $$Array.concat(/* :: */[
+        /* array */["images/space.jpg"],
+        /* :: */[
+          Predator$Sweenyville.frame_sequence("idle", 3),
+          /* :: */[
+            Predator$Sweenyville.frame_sequence("run", 6),
+            /* :: */[
+              Hero$Sweenyville.frame_sequence("Idle", 16),
+              /* :: */[
+                Hero$Sweenyville.frame_sequence("Run", 20),
+                /* [] */0
+              ]
+            ]
+          ]
+        ]
+      ]);
+  var callback = function (_, _$1) {
+    var match = Spawn$Sweenyville.spawn(/* tuple */[
+          0.0,
+          0.0
+        ], Hero$Sweenyville.sequence_map);
+    var animator = match[2];
+    var my_hero = match[1];
+    var player = match[0];
+    var match$1 = Spawn$Sweenyville.spawn(/* tuple */[
+          100.0,
+          100.0
+        ], Predator$Sweenyville.sequence_map);
+    var enemy_animator = match$1[2];
+    var enemy = match$1[1];
+    var predator = match$1[0];
+    Pixi$Sweenyville.Sprite[/* interact */2](my_hero);
+    Pixi$Sweenyville.Sprite[/* button */3](my_hero);
+    Pixi$Sweenyville.Sprite[/* listen */4](my_hero, "mouseover", (function () {
+            return Pixi$Sweenyville.Sprite[/* alpha */6](my_hero, 0.8);
+          }));
+    Pixi$Sweenyville.Sprite[/* listen */4](my_hero, "mouseout", (function () {
+            return Pixi$Sweenyville.Sprite[/* alpha */6](my_hero, 1.0);
+          }));
+    Pixi$Sweenyville.Sprite[/* listen */4](my_hero, "click", (function () {
+            return Caml_oo_curry.js2(432628799, 1, animator, Predator$Sweenyville.sequence_map);
+          }));
+    Caml_oo_curry.js2(-237325899, 2, enemy_animator, 10);
     Pixi$Sweenyville.Sprite[/* rescale */0](my_hero, 0.2, 0.2);
-    var r = Pixi$Sweenyville.App[/* renderer */8](app);
-    var player = Character$Sweenyville.character(0.0, 0.0);
-    var map_000 = /* idle : tuple */[
-      16,
-      (function (param) {
-          return texture_name("Idle", param);
-        })
-    ];
-    var map_001 = /* running : tuple */[
-      20,
-      (function (param) {
-          return texture_name("Run", param);
-        })
-    ];
-    var map = /* record */[
-      map_000,
-      map_001
-    ];
-    var animator = Animation$Sweenyville.animator(player, my_hero, map);
-    Pixi$Sweenyville.App[/* addSprite */11](app, my_hero);
+    Pixi$Sweenyville.Sprite[/* rescale */0](enemy, 0.2, 0.2);
+    var r = Pixi$Sweenyville.App[/* renderer */12](app);
+    var bg = Pixi$Sweenyville.App[/* tiling_sprite */7](Pixi$Sweenyville.App[/* texture */4]("images/space.jpg"), Pixi$Sweenyville.App[/* width */13](r), Pixi$Sweenyville.App[/* height */14](r));
+    Pixi$Sweenyville.App[/* addSprite */15](app, bg);
+    Pixi$Sweenyville.App[/* addSprite */15](app, my_hero);
+    Pixi$Sweenyville.App[/* addSprite */15](app, enemy);
     var controller = Controller$Sweenyville.controller(player);
     Dom$Sweenyville.listen("keydown", (function ($$event) {
             var d = Dom$Sweenyville.key_map($$event);
-            Caml_oo_curry.js2(-933174511, 1, controller, d);
+            Caml_oo_curry.js2(-933174511, 3, controller, d);
             if (d) {
               var match = d[0];
               if (match !== 2) {
@@ -67,24 +84,34 @@ function start() {
           }));
     Dom$Sweenyville.listen("keyup", (function ($$event) {
             var d = Dom$Sweenyville.key_map($$event);
-            return Caml_oo_curry.js2(-866390014, 2, controller, d);
+            return Caml_oo_curry.js2(-866390014, 4, controller, d);
           }));
-    return Pixi$Sweenyville.App[/* add_ticker */7](app, (function () {
-                  var match_000 = Pixi$Sweenyville.App[/* width */9](r) / 2 | 0;
-                  var match_001 = Pixi$Sweenyville.App[/* height */10](r) / 2 | 0;
-                  Caml_oo_curry.js2(-855850147, 3, controller, /* () */0);
-                  Caml_oo_curry.js2(-855850147, 4, Camera$Sweenyville.camera, /* () */0);
-                  var data = Caml_oo_curry.js2(-1033677270, 5, player, /* () */0);
-                  var match = Caml_oo_curry.js2(-889544535, 6, Camera$Sweenyville.camera, /* () */0);
-                  var match_000$1 = match_000 + (data[/* x */0] - match[0]);
-                  var match_001$1 = match_001 + (data[/* y */1] - match[1]);
-                  Pixi$Sweenyville.Sprite[/* position */1](my_hero, match_000$1, match_001$1);
-                  return Caml_oo_curry.js2(-855850147, 7, animator, /* () */0);
+    Caml_oo_curry.js2(-107572879, 5, Camera$Sweenyville.camera, player);
+    var match_000 = Pixi$Sweenyville.App[/* width */13](r) / 2 | 0;
+    var match_001 = Pixi$Sweenyville.App[/* height */14](r) / 2 | 0;
+    var centerY = match_001;
+    var centerX = match_000;
+    return Pixi$Sweenyville.App[/* add_ticker */11](app, (function () {
+                  Caml_oo_curry.js2(-855850147, 6, controller, /* () */0);
+                  Caml_oo_curry.js2(-855850147, 7, Camera$Sweenyville.camera, /* () */0);
+                  var data = Caml_oo_curry.js2(-1033677270, 8, player, /* () */0);
+                  var match = Caml_oo_curry.js2(-889544535, 9, Camera$Sweenyville.camera, /* () */0);
+                  var cameraY = match[1];
+                  var cameraX = match[0];
+                  var match_000 = centerX + (data[/* x */0] - cameraX);
+                  var match_001 = centerY + (data[/* y */1] - cameraY);
+                  var enemyData = Caml_oo_curry.js2(-1033677270, 10, predator, /* () */0);
+                  var match_000$1 = centerX + (enemyData[/* x */0] - cameraX);
+                  var match_001$1 = centerY + (enemyData[/* y */1] - cameraY);
+                  Pixi$Sweenyville.Sprite[/* position */1](my_hero, match_000, match_001);
+                  Pixi$Sweenyville.Sprite[/* position */1](enemy, match_000$1, match_001$1);
+                  Caml_oo_curry.js2(-855850147, 11, animator, /* () */0);
+                  return Caml_oo_curry.js2(-855850147, 12, enemy_animator, /* () */0);
                 }));
   };
-  Pixi$Sweenyville.App[/* load_textures */5](textures, callback);
+  Pixi$Sweenyville.App[/* load_textures */8](textures, callback);
   return app;
 }
 
 exports.start = start;
-/* Pixi-Sweenyville Not a pure module */
+/* Hero-Sweenyville Not a pure module */

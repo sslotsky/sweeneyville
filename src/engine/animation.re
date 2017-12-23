@@ -9,17 +9,36 @@ type sequence_map = {
   running: sequence_info
 };
 
+type texture_name = (string, int) => string;
+
+let sequence_info_generator = (get_name: texture_name) => {
+  let path = name => frame => get_name(name, frame);
+  (num_frames, seq_name) => (num_frames, path(seq_name));
+};
+
+let frame_sequence_generator = (get_name: texture_name) =>
+  (name, num_frames) =>
+    Array.map(n => get_name(name, n), Reasonable.range(1, num_frames));
+
 let animator(player, sprite, map: sequence_map) = {
   val ticks = ref(0);
   val frame = ref(1);
   val seq = ref(Idle);
+  val freq = ref(3);
+  val current_map = ref(map);
 
   pub tick = () => {
     ticks := ticks^ + 1;
-    if (ticks^ == 3) {
+    if (ticks^ == freq^) {
       this#animate();
       ticks := 0;
     }
+  };
+
+  pub set_freq = f => freq := f;
+  pub set_map = map => {
+    frame := 1;
+    current_map := map;
   };
 
   pri animate = () => {
@@ -38,6 +57,7 @@ let animator(player, sprite, map: sequence_map) = {
   };
 
   pri current_info = () => {
+    let map = current_map^;
     switch seq^ {
       | Idle => map.idle
       | Running => map.running
