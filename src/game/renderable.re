@@ -19,6 +19,50 @@ type renderable = {
   data: unit => render_data
 };
 
+module type GameObject = {
+  let next_coordinates: (Scene.scene, (float, float), (float, float)) => (float, float);
+  let accel: (direction, (float, float), float) => (float, float);
+  let decel: (direction, float, float) => (bool, float, float);
+};
+
+module MakeGameObject = (ObjectType: GameObject) => {
+  let spawn(start_x, start_y): renderable = {
+    val data =  {
+      x: start_x,
+      y: start_y,
+      vx: 0.0,
+      vy: 0.0
+    };
+
+    val maxSpeed = 8.0;
+
+    pub tick = (scene) => {
+      let (x, y) = ObjectType.next_coordinates(scene, (data.x, data.y), (data.vx, data.vy));
+      data.x = x;
+      data.y = y;
+    };
+
+    pub accel = (direction) => {
+      let (vx, vy) = ObjectType.accel(direction, (data.vx, data.vy), maxSpeed);
+      this#setSpeedIf(true, vx, vy);
+    };
+
+    pub decel = (direction) => {
+      let (condition, vx, vy) = ObjectType.decel(direction, data.vx, data.vy);
+      this#setSpeedIf(condition, vx, vy);
+    };
+
+    pub data = () => data;
+
+    pri setSpeedIf = (going, vx, vy) => {
+      if (going) {
+        data.vx = vx;
+        data.vy = vy;
+      }
+    };
+  };
+};
+
 let next_coordinates = (scene, position, speed) => {
   let (x, y) = position;
   let (vx, vy) = speed;

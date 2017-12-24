@@ -9,7 +9,7 @@ var Character$Sweenyville = require("../game/character.bs.js");
 function spawn(coords, map) {
   var match = map[/* idle */0];
   var sprite = Pixi$Sweenyville.App[/* sprite */5](Curry._1(match[1], 1));
-  var character = Character$Sweenyville.character(coords[0], coords[1]);
+  var character = Curry._2(Character$Sweenyville.character, coords[0], coords[1]);
   var animator = Animation$Sweenyville.animator(character, sprite, map);
   return /* tuple */[
           character,
