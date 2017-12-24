@@ -1,5 +1,5 @@
 type motion =
-  | Direction(Character.direction)
+  | Direction(Renderable.direction)
   | Idle;
 
 type control = {
@@ -16,8 +16,8 @@ let control(player, direction) : control = {
   pub stop = () => this#setMoving(false);
   pub tick = () => {
     switch moving^ {
-      | false => player#degrade(direction)
-      | true => player#advance(direction)
+      | false => player#decel(direction)
+      | true => player#accel(direction)
     };
   };
 
@@ -29,10 +29,10 @@ type option =
   | None;
 
 let controller(player) = {
-  val down = control(player, Character.Down);
-  val up = control(player, Character.Up);
-  val left = control(player, Character.Left);
-  val right = control(player, Character.Right);
+  val down = control(player, Renderable.Down);
+  val up = control(player, Renderable.Up);
+  val left = control(player, Renderable.Left);
+  val right = control(player, Renderable.Right);
 
   pub move = d => {
     let control = this#control(d);
@@ -52,15 +52,14 @@ let controller(player) = {
 
   pub tick = () => {
     List.iter(d => d#tick(), [down, up, left, right]);
-    player#tick();
   };
 
   pri control = d => {
     switch d {
-      | Commands.Move(Character.Down) => Control(down)
-      | Commands.Move(Character.Up) => Control(up)
-      | Commands.Move(Character.Left) => Control(left)
-      | Commands.Move(Character.Right) => Control(right)
+      | Commands.Move(Renderable.Down) => Control(down)
+      | Commands.Move(Renderable.Up) => Control(up)
+      | Commands.Move(Renderable.Left) => Control(left)
+      | Commands.Move(Renderable.Right) => Control(right)
       | Commands.None => None
     };
   };

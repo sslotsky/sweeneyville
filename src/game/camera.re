@@ -1,10 +1,14 @@
+open Renderable;
+
 type focus =
-  | Subject(Character.character)
+  | Subject(renderable)
   | None;
 
 let camera = {
   val focused = ref(None);
   val position = ref((0.0, 0.0));
+  val clampedX = ref(false);
+  val clampedY = ref(false);
 
   pub follow = character => this#focus(Subject(character));
 
@@ -18,9 +22,19 @@ let camera = {
 
   pub position = () => position^;
 
+  pub clampX = () => clampedX := true;
+  pub clampY = () => clampedY := true;
+  pub unclampX = () => clampedX := false;
+  pub unclampY = () => clampedY := false;
+
   pri focus = sub => focused := sub;
-  pri track = (c: Character.character) => {
+  pri track = (c: renderable) => {
+    let (x, y) = position^;
     let d = c#data();
-    position := (d.x, d.y);
+
+    let newX = clampedX^ ? x : d.x;
+    let newY = clampedY^ ? y : d.y;
+
+    position := (newX, newY);
   };
 };

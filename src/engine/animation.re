@@ -1,3 +1,5 @@
+open Renderable;
+
 type sequence =
   | Running
   | Idle;
@@ -42,7 +44,7 @@ let animator(player, sprite, map: sequence_map) = {
   };
 
   pri animate = () => {
-    let (d: Character.data) = player#data();
+    let (d: render_data) = player#data();
     let moving = d.vx != 0.0 || d.vy != 0.0;
     let nextSeq = moving ? Running : Idle;
 

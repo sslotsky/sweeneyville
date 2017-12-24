@@ -7,6 +7,7 @@ type event;
 [@bs.set] external setY : (sprite, float) => unit = "y";
 [@bs.get] external getScale : (sprite) => scale = "scale";
 [@bs.get] external getScaleX : (scale) => float = "x";
+[@bs.get] external getScaleY : (scale) => float = "x";
 [@bs.set] external scaleX : (scale, float) => unit = "x";
 [@bs.set] external scaleY : (scale, float) => unit = "y";
 [@bs.get] external getAnchor : (sprite) => anchor = "anchor";
@@ -16,6 +17,8 @@ type event;
 [@bs.set] external set_button_mode : (sprite, Js.boolean) => unit = "buttonMode";
 [@bs.send] external on : (sprite, string, event => unit) => unit = "on";
 [@bs.set] external set_alpha : (sprite, float) => unit = "alpha";
+[@bs.get] external sprite_height : (sprite) => float = "height";
+[@bs.get] external sprite_width : (sprite) => float = "width";
 
 module Sprite = {
   let rescale = (sprite: sprite, x: float, y: float) => {
@@ -39,6 +42,13 @@ module Sprite = {
   let setTexture = setTexture;
 
   let alpha = set_alpha;
+
+  let center_offset = sprite => {
+    (
+      abs_float(getScaleX(getScale(sprite))) *. sprite_height(sprite) /. 2.0,
+      abs_float(getScaleY(getScale(sprite))) *. sprite_width(sprite) /. 2.0
+    );
+  };
 };
 
 [@bs.new] [@bs.module "pixi.js"] external createSprite: texture => sprite = "Sprite";

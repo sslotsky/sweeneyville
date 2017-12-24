@@ -48,10 +48,10 @@ function control(player, direction) {
               var match = self$1[moving][0];
               if (match !== 0) {
                 var tmp = env$1[0];
-                return Caml_oo_curry.js2(-284424062, 7, tmp, env$1[1]);
+                return Caml_oo_curry.js2(463068136, 7, tmp, env$1[1]);
               } else {
                 var tmp$1 = env$1[0];
-                return Caml_oo_curry.js2(978835894, 8, tmp$1, env$1[1]);
+                return Caml_oo_curry.js2(-685766999, 8, tmp$1, env$1[1]);
               }
             }),
           setMoving,
@@ -84,7 +84,6 @@ var class_tables$1 = [
 function controller(player) {
   if (!class_tables$1[0]) {
     var $$class = CamlinternalOO.create_table(shared);
-    var env = CamlinternalOO.new_variable($$class, "");
     var ids = CamlinternalOO.new_methods_variables($$class, [
           "tick",
           "stop",
@@ -110,7 +109,7 @@ function controller(player) {
               var control$2 = Curry._2(self$2[0][control$1], self$2, d);
               if (control$2) {
                 var tmp = control$2[0];
-                return Caml_oo_curry.js2(-933174511, 16, tmp, /* () */0);
+                return Caml_oo_curry.js2(-933174511, 15, tmp, /* () */0);
               } else {
                 return /* () */0;
               }
@@ -120,30 +119,28 @@ function controller(player) {
               var control$2 = Curry._2(self$2[0][control$1], self$2, d);
               if (control$2) {
                 var tmp = control$2[0];
-                return Caml_oo_curry.js2(-866390014, 18, tmp, /* () */0);
+                return Caml_oo_curry.js2(-866390014, 17, tmp, /* () */0);
               } else {
                 return /* () */0;
               }
             }),
           tick,
           (function (self$2, _) {
-              List.iter((function (d) {
-                      return Caml_oo_curry.js2(-855850147, 19, d, /* () */0);
-                    }), /* :: */[
-                    self$2[down],
-                    /* :: */[
-                      self$2[up],
-                      /* :: */[
-                        self$2[left],
-                        /* :: */[
-                          self$2[right],
-                          /* [] */0
-                        ]
-                      ]
-                    ]
-                  ]);
-              var tmp = self$2[env][0];
-              return Caml_oo_curry.js2(-855850147, 20, tmp, /* () */0);
+              return List.iter((function (d) {
+                            return Caml_oo_curry.js2(-855850147, 18, d, /* () */0);
+                          }), /* :: */[
+                          self$2[down],
+                          /* :: */[
+                            self$2[up],
+                            /* :: */[
+                              self$2[left],
+                              /* :: */[
+                                self$2[right],
+                                /* [] */0
+                              ]
+                            ]
+                          ]
+                        ]);
             }),
           control$1,
           (function (self$2, d) {
@@ -164,20 +161,19 @@ function controller(player) {
               }
             })
         ]);
-    var env_init = function (env$1) {
+    var env_init = function (env) {
       var self = CamlinternalOO.create_object_opt(0, $$class);
-      self[down] = control(env$1[1], /* Down */1);
-      self[up] = control(env$1[1], /* Up */0);
-      self[left] = control(env$1[1], /* Left */2);
-      self[right] = control(env$1[1], /* Right */3);
-      self[env] = env$1[0];
+      self[down] = control(env[1], /* Down */1);
+      self[up] = control(env[1], /* Up */0);
+      self[left] = control(env[1], /* Left */2);
+      self[right] = control(env[1], /* Right */3);
       return self;
     };
     CamlinternalOO.init_class($$class);
     class_tables$1[0] = env_init;
   }
   return Curry._1(class_tables$1[0], [
-              [player],
+              0,
               player
             ]);
 }

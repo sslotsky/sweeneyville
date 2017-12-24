@@ -1,3 +1,3 @@
 type command =
-  | Move(Character.direction)
+  | Move(Renderable.direction)
   | None

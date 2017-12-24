@@ -43,6 +43,13 @@ function alpha(prim, prim$1) {
   return /* () */0;
 }
 
+function center_offset(sprite) {
+  return /* tuple */[
+          Math.abs(sprite.scale.x) * sprite.height / 2.0,
+          Math.abs(sprite.scale.x) * sprite.width / 2.0
+        ];
+}
+
 var Sprite = /* module */[
   /* rescale */rescale,
   /* position */position,
@@ -50,7 +57,8 @@ var Sprite = /* module */[
   /* button */button,
   /* listen */listen,
   /* setTexture */setTexture,
-  /* alpha */alpha
+  /* alpha */alpha,
+  /* center_offset */center_offset
 ];
 
 function start() {
