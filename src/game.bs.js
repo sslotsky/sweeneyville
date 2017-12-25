@@ -60,8 +60,8 @@ function start() {
           0.0,
           100.0
         ], /* tuple */[
-          170.0,
-          250.0
+          700.0,
+          700.0
         ], "images/tiles.jpeg");
     var tile = match$2[1];
     var tile_sprite = match$2[0];
@@ -166,12 +166,15 @@ function start() {
                     }
                   };
                   var put_tile = function (param) {
+                    var sprite = param[1];
                     var tmp = param[0];
                     var data = Caml_oo_curry.js2(-1033677270, 24, tmp, /* () */0);
                     var match_000 = centerX + (data[/* x */0] - cameraX);
                     var match_001 = centerY + (data[/* y */1] - cameraY);
                     var match = Pixi$Sweenyville.Sprite[/* center_offset */10](my_hero);
-                    return Pixi$Sweenyville.Sprite[/* position */4](param[1], match_000 + match[0] / 4.0, match_001 - match[1]);
+                    var hero_x = match[0];
+                    var match$1 = Pixi$Sweenyville.Sprite[/* center_offset */10](sprite);
+                    return Pixi$Sweenyville.Sprite[/* position */4](sprite, match_000 - hero_x + match$1[0] - hero_x, match_001 - match[1]);
                   };
                   put_tile(/* tuple */[
                         tile,
