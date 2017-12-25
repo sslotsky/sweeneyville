@@ -16,7 +16,7 @@ var TileObject = /* module */[
   /* MakeGameObject */Renderable$Sweenyville.MakeGameObject,
   /* accel */Renderable$Sweenyville.accel,
   /* decel */Renderable$Sweenyville.decel,
-  /* check_collisions */Renderable$Sweenyville.check_collisions,
+  /* colliders */Renderable$Sweenyville.colliders,
   /* category */category,
   /* next_coordinates */next_coordinates
 ];
@@ -26,7 +26,7 @@ var Tile = Renderable$Sweenyville.MakeGameObject([
       next_coordinates,
       Renderable$Sweenyville.accel,
       Renderable$Sweenyville.decel,
-      Renderable$Sweenyville.check_collisions
+      Renderable$Sweenyville.colliders
     ]);
 
 var spawn = Tile[/* spawn */0];

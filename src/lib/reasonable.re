@@ -13,3 +13,13 @@ let range = (a, b) => {
 
   build([|x|]);
 };
+
+let select = (array, lambda) => {
+  Array.fold_left((final, item) => {
+    if (lambda(item)) {
+      Array.append(final, [|item|]);
+    } else {
+      final;
+    };
+  }, [||], array);
+};

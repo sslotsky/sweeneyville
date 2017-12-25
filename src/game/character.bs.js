@@ -8,7 +8,7 @@ var CharacterObject = /* module */[
   /* next_coordinates */Renderable$Sweenyville.next_coordinates,
   /* accel */Renderable$Sweenyville.accel,
   /* decel */Renderable$Sweenyville.decel,
-  /* check_collisions */Renderable$Sweenyville.check_collisions,
+  /* colliders */Renderable$Sweenyville.colliders,
   /* category : Character */0
 ];
 
@@ -17,7 +17,7 @@ var Character = Renderable$Sweenyville.MakeGameObject([
       Renderable$Sweenyville.next_coordinates,
       Renderable$Sweenyville.accel,
       Renderable$Sweenyville.decel,
-      Renderable$Sweenyville.check_collisions
+      Renderable$Sweenyville.colliders
     ]);
 
 var character = Character[/* spawn */0];

@@ -10,9 +10,61 @@ function center(r) {
         ];
 }
 
+function inside_x(a, b) {
+  if (a[/* x */0] + a[/* width */5] > b[/* x */0]) {
+    return +(a[/* x */0] < b[/* x */0] + b[/* width */5]);
+  } else {
+    return /* false */0;
+  }
+}
+
+function inside_y(a, b) {
+  if (a[/* y */1] + a[/* height */4] > b[/* y */1]) {
+    return +(a[/* y */1] < b[/* y */1] + b[/* height */4]);
+  } else {
+    return /* false */0;
+  }
+}
+
+function above(data_a, collider) {
+  var data_b = Caml_oo_curry.js2(-1033677270, 1, collider, /* () */0);
+  if (data_a[/* y */1] < data_b[/* y */1]) {
+    return inside_x(data_a, data_b);
+  } else {
+    return /* false */0;
+  }
+}
+
+function below(data_a, collider) {
+  var data_b = Caml_oo_curry.js2(-1033677270, 2, collider, /* () */0);
+  if (data_a[/* y */1] + data_a[/* height */4] > data_b[/* y */1] + data_b[/* height */4]) {
+    return inside_x(data_a, data_b);
+  } else {
+    return /* false */0;
+  }
+}
+
+function left_of(data_a, collider) {
+  var data_b = Caml_oo_curry.js2(-1033677270, 3, collider, /* () */0);
+  if (data_a[/* x */0] < data_b[/* x */0]) {
+    return inside_y(data_a, data_b);
+  } else {
+    return /* false */0;
+  }
+}
+
+function right_of(data_a, collider) {
+  var data_b = Caml_oo_curry.js2(-1033677270, 4, collider, /* () */0);
+  if (data_a[/* x */0] > data_b[/* x */0]) {
+    return inside_y(data_a, data_b);
+  } else {
+    return /* false */0;
+  }
+}
+
 function collision(a, b) {
-  var data_a = Caml_oo_curry.js2(-1033677270, 1, a, /* () */0);
-  var data_b = Caml_oo_curry.js2(-1033677270, 2, b, /* () */0);
+  var data_a = Caml_oo_curry.js2(-1033677270, 5, a, /* () */0);
+  var data_b = Caml_oo_curry.js2(-1033677270, 6, b, /* () */0);
   var match_000 = data_a[/* width */5] / 2.0 + data_b[/* width */5] / 2.0;
   var match_001 = data_a[/* height */4] / 2.0 + data_b[/* height */4] / 2.0;
   var match_000$1 = center(data_a);
@@ -27,5 +79,11 @@ function collision(a, b) {
 }
 
 exports.center    = center;
+exports.inside_x  = inside_x;
+exports.inside_y  = inside_y;
+exports.above     = above;
+exports.below     = below;
+exports.left_of   = left_of;
+exports.right_of  = right_of;
 exports.collision = collision;
 /* No side effect */

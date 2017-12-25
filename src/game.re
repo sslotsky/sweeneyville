@@ -21,7 +21,7 @@ let start = () => {
     let tile_size = 170.0;
     let (player, my_hero, animator) = spawn((0.0, 0.0), (sprite_size, sprite_size), Hero.sequence_map);
     let (predator, enemy, enemy_animator) = spawn((100.0, 400.0), (sprite_size, sprite_size), Predator.sequence_map);
-    let (tile_sprite, tile) = make_tile((0.0, 0.0), (tile_size, 250.0), "images/tiles.jpeg");
+    let (tile_sprite, tile) = make_tile((0.0, 100.0), (tile_size, 250.0), "images/tiles.jpeg");
 
     Sprite.interact(my_hero);
     Sprite.button(my_hero);
@@ -122,7 +122,7 @@ let start = () => {
         let data = renderable#data();
         let (x, y) = (centerX +. (data.x -. cameraX), centerY +. (data.y -. cameraY));
         let (hero_x, hero_y) = Sprite.center_offset(my_hero);
-        Sprite.position(sprite, x +. hero_x /. 2.0, y -. hero_y /. 2.0);
+        Sprite.position(sprite, x +. hero_x /. 4.0, y -. hero_y);
       };
 
       put_tile((tile, tile_sprite));

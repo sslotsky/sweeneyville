@@ -1,11 +1,12 @@
 open Core;
+open Reasonable;
 
 module type GameObject = {
   let category: game_object;
   let next_coordinates: (scene, (float, float), (float, float)) => (float, float);
   let accel: (direction, (float, float), float) => (float, float);
   let decel: (direction, float, float) => (bool, float, float);
-  let check_collisions: (renderable, array(renderable)) => unit;
+  let colliders: (renderable, array(renderable)) => array(renderable);
 };
 
 module MakeGameObject = (ObjectType: GameObject) => {
@@ -29,10 +30,26 @@ module MakeGameObject = (ObjectType: GameObject) => {
     pub direction = () => direction^;
 
     pub tick = (scene) => {
+      let (current_x, current_y) = (data.x, data.y);
       let (x, y) = ObjectType.next_coordinates(scene, (data.x, data.y), (data.vx, data.vy));
       data.x = x;
       data.y = y;
-      ObjectType.check_collisions(this, scene#renderables());
+
+      let previous_state = {...data, x: current_x, y: current_y};
+
+      let colliders = ObjectType.colliders(this, scene#renderables());
+
+      Array.iter(c => {
+        if (above(previous_state, c) || below(previous_state, c)) {
+          data.vy = 0.0;
+          data.y = current_y;
+        };
+
+        if (right_of(previous_state, c) || left_of(previous_state, c)) {
+          data.vx = 0.0;
+          data.x = current_x;
+        };
+      }, colliders);
     };
 
     pub accel = (direction) => {
@@ -90,10 +107,6 @@ let decel = (direction, vx, vy) => {
   };
 };
 
-let check_collisions = (obj, renderables) => {
-  Array.iter(r => {
-    if (r !== obj && collision(r, obj)) {
-      Js.log("collision");
-    };
-  }, renderables);
+let colliders = (obj, renderables) => {
+  select(renderables, r => r !== obj && collision(r, obj));
 };

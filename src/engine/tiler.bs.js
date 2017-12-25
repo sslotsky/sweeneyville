@@ -6,7 +6,6 @@ var Pixi$Sweenyville = require("./pixi.bs.js");
 var Tile$Sweenyville = require("../game/tile.bs.js");
 
 function make_tile(coords, dimensions, path) {
-  Pixi$Sweenyville.App[/* sprite */5](path);
   var sprite = Pixi$Sweenyville.App[/* tiling_sprite */7](Pixi$Sweenyville.App[/* texture */4](path), dimensions[0] | 0, dimensions[1] | 0);
   var tile = Curry._2(Tile$Sweenyville.spawn, coords, dimensions);
   return /* tuple */[

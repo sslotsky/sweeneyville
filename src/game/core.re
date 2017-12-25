@@ -46,6 +46,34 @@ let center = r => (
   r.y +. (r.height /. 2.0)
 );
 
+let inside_x = (a, b) => {
+  a.x +. a.width > b.x && a.x < b.x +. b.width;
+};
+
+let inside_y = (a, b) => {
+  a.y +. a.height > b.y && a.y < b.y +. b.height;
+};
+
+let above = (data_a, collider) => {
+  let data_b = collider#data();
+  data_a.y < data_b.y && inside_x(data_a, data_b);
+};
+
+let below = (data_a, collider) => {
+  let data_b = collider#data();
+  data_a.y +. data_a.height > data_b.y +. data_b.height && inside_x(data_a, data_b);
+};
+
+let left_of = (data_a, collider) => {
+  let data_b = collider#data();
+  data_a.x < data_b.x && inside_y(data_a, data_b);
+};
+
+let right_of = (data_a, collider) => {
+  let data_b = collider#data();
+  data_a.x > data_b.x && inside_y(data_a, data_b);
+};
+
 let collision = (a: renderable, b: renderable) => {
   let data_a = a#data();
   let data_b = b#data();

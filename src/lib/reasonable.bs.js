@@ -2,6 +2,7 @@
 'use strict';
 
 var $$Array    = require("bs-platform/lib/js/array.js");
+var Curry      = require("bs-platform/lib/js/curry.js");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
 var Pervasives = require("bs-platform/lib/js/pervasives.js");
 
@@ -24,5 +25,16 @@ function range(a, b) {
   };
 }
 
-exports.range = range;
+function select(array, lambda) {
+  return $$Array.fold_left((function ($$final, item) {
+                if (Curry._1(lambda, item)) {
+                  return $$Array.append($$final, /* array */[item]);
+                } else {
+                  return $$final;
+                }
+              }), /* array */[], array);
+}
+
+exports.range  = range;
+exports.select = select;
 /* No side effect */

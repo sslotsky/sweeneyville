@@ -58,7 +58,7 @@ function start() {
     var predator = match$1[0];
     var match$2 = Tiler$Sweenyville.make_tile(/* tuple */[
           0.0,
-          0.0
+          100.0
         ], /* tuple */[
           170.0,
           250.0
@@ -171,7 +171,7 @@ function start() {
                     var match_000 = centerX + (data[/* x */0] - cameraX);
                     var match_001 = centerY + (data[/* y */1] - cameraY);
                     var match = Pixi$Sweenyville.Sprite[/* center_offset */10](my_hero);
-                    return Pixi$Sweenyville.Sprite[/* position */4](param[1], match_000 + match[0] / 2.0, match_001 - match[1] / 2.0);
+                    return Pixi$Sweenyville.Sprite[/* position */4](param[1], match_000 + match[0] / 4.0, match_001 - match[1]);
                   };
                   put_tile(/* tuple */[
                         tile,
