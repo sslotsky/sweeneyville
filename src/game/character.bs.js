@@ -3,14 +3,26 @@
 
 var Renderable$Sweenyville = require("./renderable.bs.js");
 
+var CharacterObject = /* module */[
+  /* MakeGameObject */Renderable$Sweenyville.MakeGameObject,
+  /* next_coordinates */Renderable$Sweenyville.next_coordinates,
+  /* accel */Renderable$Sweenyville.accel,
+  /* decel */Renderable$Sweenyville.decel,
+  /* check_collisions */Renderable$Sweenyville.check_collisions,
+  /* category : Character */0
+];
+
 var Character = Renderable$Sweenyville.MakeGameObject([
+      /* Character */0,
       Renderable$Sweenyville.next_coordinates,
       Renderable$Sweenyville.accel,
-      Renderable$Sweenyville.decel
+      Renderable$Sweenyville.decel,
+      Renderable$Sweenyville.check_collisions
     ]);
 
 var character = Character[/* spawn */0];
 
-exports.Character = Character;
-exports.character = character;
+exports.CharacterObject = CharacterObject;
+exports.Character       = Character;
+exports.character       = character;
 /* Character Not a pure module */

@@ -4,6 +4,26 @@
 var PixiJs     = require("pixi.js");
 var Js_boolean = require("bs-platform/lib/js/js_boolean.js");
 
+function scale(sprite) {
+  var s = sprite.scale;
+  return /* tuple */[
+          s.x,
+          s.x
+        ];
+}
+
+function flip_right(sprite) {
+  var match = scale(sprite);
+  sprite.scale.x = Math.abs(match[0]);
+  return /* () */0;
+}
+
+function flip_left(sprite) {
+  var match = scale(sprite);
+  sprite.scale.x = Math.abs(match[0]) * -1.0;
+  return /* () */0;
+}
+
 function rescale(sprite, x, y) {
   var s = sprite.scale;
   s.x = x;
@@ -45,12 +65,25 @@ function alpha(prim, prim$1) {
 
 function center_offset(sprite) {
   return /* tuple */[
-          Math.abs(sprite.scale.x) * sprite.height / 2.0,
-          Math.abs(sprite.scale.x) * sprite.width / 2.0
+          sprite.height / 2.0,
+          sprite.width / 2.0
         ];
 }
 
+function set_height(prim, prim$1) {
+  prim.height = prim$1;
+  return /* () */0;
+}
+
+function set_width(prim, prim$1) {
+  prim.width = prim$1;
+  return /* () */0;
+}
+
 var Sprite = /* module */[
+  /* scale */scale,
+  /* flip_right */flip_right,
+  /* flip_left */flip_left,
   /* rescale */rescale,
   /* position */position,
   /* interact */interact,
@@ -58,7 +91,9 @@ var Sprite = /* module */[
   /* listen */listen,
   /* setTexture */setTexture,
   /* alpha */alpha,
-  /* center_offset */center_offset
+  /* center_offset */center_offset,
+  /* set_height */set_height,
+  /* set_width */set_width
 ];
 
 function start() {

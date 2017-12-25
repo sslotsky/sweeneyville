@@ -154,6 +154,8 @@ function controller(player) {
                       return /* Control */[self$2[left]];
                   case 3 : 
                       return /* Control */[self$2[right]];
+                  case 4 : 
+                      return /* None */0;
                   
                 }
               } else {

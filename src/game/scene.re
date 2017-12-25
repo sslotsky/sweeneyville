@@ -1,17 +1,6 @@
-type scene = {
-  .
-  tick: unit => unit,
-  left_bound: unit => float,
-  right_bound: unit => float,
-  bottom_bound: unit => float,
-  top_bound: unit => float,
-  height: unit => int,
-  width: unit => int
-};
-
-let scene(width, height, characters) = {
+let scene(width, height, renderables) = {
   pub tick = () => {
-    Array.iter(c => c#tick(this), characters);
+    this#tick_children(renderables);
   };
 
   pub left_bound = () => 0.0 -. (float_of_int(width) /. 2.0);
@@ -20,4 +9,8 @@ let scene(width, height, characters) = {
   pub top_bound = () => 0.0 -. (float_of_int(height) /. 2.0);
   pub width = () => width;
   pub height = () => height;
+  pub renderables = () => renderables;
+
+  pri tick_children = children =>
+    Array.iter(t => t#tick(this), children);
 };

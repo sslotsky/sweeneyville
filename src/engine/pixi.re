@@ -19,8 +19,25 @@ type event;
 [@bs.set] external set_alpha : (sprite, float) => unit = "alpha";
 [@bs.get] external sprite_height : (sprite) => float = "height";
 [@bs.get] external sprite_width : (sprite) => float = "width";
+[@bs.set] external set_height : (sprite, float) => unit = "height";
+[@bs.set] external set_width : (sprite, float) => unit = "width";
 
 module Sprite = {
+  let scale = sprite => {
+    let s = getScale(sprite);
+    (getScaleX(s), getScaleY(s));
+  };
+
+  let flip_right = sprite => {
+    let (scale, _) = scale(sprite);
+    scaleX(getScale(sprite), abs_float(scale));
+  };
+
+  let flip_left = sprite => {
+    let (scale, _) = scale(sprite);
+    scaleX(getScale(sprite), abs_float(scale) *. -1.0);
+  };
+
   let rescale = (sprite: sprite, x: float, y: float) => {
     let s = getScale(sprite);
     scaleX(s, x);
@@ -45,10 +62,13 @@ module Sprite = {
 
   let center_offset = sprite => {
     (
-      abs_float(getScaleX(getScale(sprite))) *. sprite_height(sprite) /. 2.0,
-      abs_float(getScaleY(getScale(sprite))) *. sprite_width(sprite) /. 2.0
+      sprite_height(sprite) /. 2.0,
+      sprite_width(sprite) /. 2.0
     );
   };
+
+  let set_height = set_height;
+  let set_width = set_width;
 };
 
 [@bs.new] [@bs.module "pixi.js"] external createSprite: texture => sprite = "Sprite";

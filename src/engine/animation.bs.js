@@ -121,7 +121,7 @@ function animator(player, sprite, map) {
           update_texture,
           (function (self$1, _) {
               var match = Curry._2(self$1[0][current_info], self$1, /* () */0);
-              return Pixi$Sweenyville.Sprite[/* setTexture */5](self$1[env][0], Pixi$Sweenyville.App[/* texture */4](Curry._1(match[1], self$1[frame][0])));
+              return Pixi$Sweenyville.Sprite[/* setTexture */8](self$1[env][0], Pixi$Sweenyville.App[/* texture */4](Curry._1(match[1], self$1[frame][0])));
             })
         ]);
     var env_init = function (env$1) {

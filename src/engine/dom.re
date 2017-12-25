@@ -1,3 +1,5 @@
+open Core;
+
 type win;
 type event;
 [@bs.val] external window : win = "window";
@@ -10,10 +12,10 @@ let listen = (name, h) => listen(window(), name, h);
 let key_map = (e) => {
   let code = getKeyCode(e);
   switch code {
-    | 40 => Commands.Move(Renderable.Down)
-    | 38 => Commands.Move(Renderable.Up)
-    | 37 => Commands.Move(Renderable.Left)
-    | 39 => Commands.Move(Renderable.Right)
+    | 40 => Commands.Move(Down)
+    | 38 => Commands.Move(Up)
+    | 37 => Commands.Move(Left)
+    | 39 => Commands.Move(Right)
     | _ => Commands.None
   };
 };

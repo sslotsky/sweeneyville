@@ -1,4 +1,4 @@
-open Renderable;
+open Core;
 
 type focus =
   | Subject(renderable)

@@ -1,3 +1,5 @@
+open Core;
+
 type command =
-  | Move(Renderable.direction)
+  | Move(direction)
   | None

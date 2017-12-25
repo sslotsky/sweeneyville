@@ -12,12 +12,13 @@ var class_tables = [
   0
 ];
 
-function scene(width, height, characters) {
+function scene(width, height, renderables) {
   if (!class_tables[0]) {
     var $$class = CamlinternalOO.create_table([
           "top_bound",
           "width",
           "tick",
+          "renderables",
           "right_bound",
           "bottom_bound",
           "height",
@@ -27,49 +28,61 @@ function scene(width, height, characters) {
     var ids = CamlinternalOO.get_method_labels($$class, [
           "width",
           "top_bound",
+          "tick_children",
           "tick",
           "right_bound",
+          "renderables",
           "left_bound",
           "height",
           "bottom_bound"
         ]);
     var width$1 = ids[0];
     var top_bound = ids[1];
-    var tick = ids[2];
-    var right_bound = ids[3];
-    var left_bound = ids[4];
-    var height$1 = ids[5];
-    var bottom_bound = ids[6];
+    var tick_children = ids[2];
+    var tick = ids[3];
+    var right_bound = ids[4];
+    var renderables$1 = ids[5];
+    var left_bound = ids[6];
+    var height$1 = ids[7];
+    var bottom_bound = ids[8];
     CamlinternalOO.set_methods($$class, /* array */[
           tick,
           (function (self$1, _) {
-              return $$Array.iter((function (c) {
-                            return Caml_oo_curry.js2(-855850147, 2, c, self$1);
-                          }), self$1[env][2]);
+              return Curry._2(self$1[0][tick_children], self$1, self$1[env][0]);
             }),
           left_bound,
           (function (self$1, _) {
-              return 0.0 - self$1[env][1] / 2.0;
+              return 0.0 - self$1[env][2] / 2.0;
             }),
           right_bound,
           (function (self$1, _) {
-              return self$1[env][1] / 2.0;
+              return self$1[env][2] / 2.0;
             }),
           bottom_bound,
           (function (self$1, _) {
-              return self$1[env][0] / 2.0;
+              return self$1[env][1] / 2.0;
             }),
           top_bound,
           (function (self$1, _) {
-              return 0.0 - self$1[env][0] / 2.0;
+              return 0.0 - self$1[env][1] / 2.0;
             }),
           width$1,
           (function (self$1, _) {
-              return self$1[env][1];
+              return self$1[env][2];
             }),
           height$1,
           (function (self$1, _) {
+              return self$1[env][1];
+            }),
+          renderables$1,
+          (function (self$1, _) {
               return self$1[env][0];
+            }),
+          tick_children,
+          (function (self$1, children) {
+              return $$Array.iter((function (t) {
+                            return Caml_oo_curry.js2(-855850147, 2, t, self$1);
+                          }), children);
             })
         ]);
     var env_init = function (env$1) {
@@ -81,9 +94,9 @@ function scene(width, height, characters) {
     class_tables[0] = env_init;
   }
   return Curry._1(class_tables[0], [
+              renderables,
               height,
-              width,
-              characters
+              width
             ]);
 }
 

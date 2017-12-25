@@ -1,5 +1,7 @@
+open Core;
+
 type motion =
-  | Direction(Renderable.direction)
+  | Direction(direction)
   | Idle;
 
 type control = {
@@ -29,10 +31,10 @@ type option =
   | None;
 
 let controller(player) = {
-  val down = control(player, Renderable.Down);
-  val up = control(player, Renderable.Up);
-  val left = control(player, Renderable.Left);
-  val right = control(player, Renderable.Right);
+  val down = control(player, Down);
+  val up = control(player, Up);
+  val left = control(player, Left);
+  val right = control(player, Right);
 
   pub move = d => {
     let control = this#control(d);
@@ -56,11 +58,11 @@ let controller(player) = {
 
   pri control = d => {
     switch d {
-      | Commands.Move(Renderable.Down) => Control(down)
-      | Commands.Move(Renderable.Up) => Control(up)
-      | Commands.Move(Renderable.Left) => Control(left)
-      | Commands.Move(Renderable.Right) => Control(right)
-      | Commands.None => None
+      | Commands.Move(Down) => Control(down)
+      | Commands.Move(Up) => Control(up)
+      | Commands.Move(Left) => Control(left)
+      | Commands.Move(Right) => Control(right)
+      | _ => None
     };
   };
 }
