@@ -9,7 +9,7 @@ module type GameObject = {
 };
 
 module MakeGameObject = (ObjectType: GameObject) => {
-  let spawn((start_x, start_y), (height, width)): renderable = {
+  let spawn((start_x, start_y), (width, height)): renderable = {
     val direction = ref(Nowhere);
 
     val data =  {

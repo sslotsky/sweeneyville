@@ -130,8 +130,8 @@ function MakeGameObject(ObjectType) {
           env$1[2],
           0.0,
           0.0,
-          env$1[3],
-          env$1[4]
+          env$1[4],
+          env$1[3]
         ];
         self[maxSpeed] = 8.0;
         self[env] = env$1[0];
