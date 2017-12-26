@@ -10,7 +10,7 @@ module type GameObject = {
 };
 
 module MakeGameObject = (ObjectType: GameObject) => {
-  let spawn((start_x, start_y), (width, height)): renderable = {
+  let spawn((start_x, start_y), (width, height), hub: Events.hub): renderable = {
     val direction = ref(Nowhere);
 
     val data =  {
@@ -46,6 +46,8 @@ module MakeGameObject = (ObjectType: GameObject) => {
       let colliders = ObjectType.colliders(this, scene#renderables());
 
       Array.iter(c => {
+        hub.trigger(Collided, Collision(this, c, previous_state));
+
         if (above(previous_state, c) || below(previous_state, c)) {
           data.vy = 0.0;
           data.y = current_y;

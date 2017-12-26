@@ -2,6 +2,7 @@
 'use strict';
 
 var $$Array                = require("bs-platform/lib/js/array.js");
+var Block                  = require("bs-platform/lib/js/block.js");
 var Curry                  = require("bs-platform/lib/js/curry.js");
 var Pervasives             = require("bs-platform/lib/js/pervasives.js");
 var Caml_oo_curry          = require("bs-platform/lib/js/caml_oo_curry.js");
@@ -16,7 +17,7 @@ var class_tables = [
 ];
 
 function MakeGameObject(ObjectType) {
-  var spawn = function (param, param$1) {
+  var spawn = function (param, param$1, hub) {
     if (!class_tables[0]) {
       var $$class = CamlinternalOO.create_table([
             "data",
@@ -98,6 +99,11 @@ function MakeGameObject(ObjectType) {
                 ];
                 var colliders = Curry._2(env$1[0][/* colliders */4], self$1, Caml_oo_curry.js2(-746899837, 2, scene, /* () */0));
                 return $$Array.iter((function (c) {
+                              Curry._2(env$1[1][/* trigger */3], /* Collided */1, /* Collision */Block.__(1, [
+                                      self$1,
+                                      c,
+                                      previous_state
+                                    ]));
                               if (Core$Sweenyville.above(previous_state, c) || Core$Sweenyville.below(previous_state, c)) {
                                 self$1[data$1][/* vy */3] = 0.0;
                                 self$1[data$1][/* y */1] = current_y;
@@ -172,7 +178,10 @@ function MakeGameObject(ObjectType) {
       class_tables[0] = env_init;
     }
     return Curry._1(class_tables[0], [
-                [ObjectType],
+                [
+                  ObjectType,
+                  hub
+                ],
                 param[0],
                 param[1],
                 param$1[0],

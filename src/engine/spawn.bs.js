@@ -6,15 +6,15 @@ var Pixi$Sweenyville      = require("./pixi.bs.js");
 var Animation$Sweenyville = require("./animation.bs.js");
 var Character$Sweenyville = require("../game/character.bs.js");
 
-function spawn(coords, dimensions, map) {
+function spawn(coords, dimensions, map, hub) {
   var match = map[/* idle */0];
   var sprite = Pixi$Sweenyville.App[/* sprite */5](Curry._1(match[1], 1));
   Pixi$Sweenyville.Sprite[/* set_height */11](sprite, dimensions[1]);
   Pixi$Sweenyville.Sprite[/* set_width */12](sprite, dimensions[0]);
-  var character = Curry._2(Character$Sweenyville.character, /* tuple */[
+  var character = Curry._3(Character$Sweenyville.character, /* tuple */[
         coords[0],
         coords[1]
-      ], dimensions);
+      ], dimensions, hub);
   var animator = Animation$Sweenyville.animator(character, sprite, map);
   return /* tuple */[
           character,
