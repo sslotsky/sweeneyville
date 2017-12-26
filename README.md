@@ -1,18 +1,15 @@
-# Basic Reason Template
+# Sweeneyville
 
-Hello! This project allows you to quickly get started with Reason and BuckleScript. If you wanted a more sophisticated version, try the `react` template (`bsb -theme react -init .`).
+## Running Instructions
 
-# Build
-```
-npm run build
-```
-
-# Build + Watch
+Currently requires two processes, i.e. two terminal tabs. First:
 
 ```
-npm run watch
+yarn start
 ```
 
+Then in a new tab:
 
-# Editor
-If you use `vscode`, Press `Windows + Shift + B` it will build automatically
+```
+yarn run play
+```
