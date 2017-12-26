@@ -7,8 +7,8 @@ type focus =
 let camera = {
   val focused = ref(None);
   val position = ref((0.0, 0.0));
-  val clampedX = ref(false);
-  val clampedY = ref(false);
+  val clamped_x = ref(false);
+  val clamped_y = ref(false);
 
   pub follow = character => this#focus(Subject(character));
 
@@ -22,19 +22,19 @@ let camera = {
 
   pub position = () => position^;
 
-  pub clampX = () => clampedX := true;
-  pub clampY = () => clampedY := true;
-  pub unclampX = () => clampedX := false;
-  pub unclampY = () => clampedY := false;
+  pub clamp_x = () => clamped_x := true;
+  pub clamp_y = () => clamped_y := true;
+  pub unclamp_x = () => clamped_x := false;
+  pub unclamp_y = () => clamped_y := false;
 
   pri focus = sub => focused := sub;
   pri track = (c: renderable) => {
     let (x, y) = position^;
     let d = c#data();
 
-    let newX = clampedX^ ? x : d.x;
-    let newY = clampedY^ ? y : d.y;
+    let new_x = clamped_x^ ? x : d.x;
+    let new_y = clamped_y^ ? y : d.y;
 
-    position := (newX, newY);
+    position := (new_x, new_y);
   };
 };

@@ -26,7 +26,13 @@ module MakeGameObject = (ObjectType: GameObject) => {
 
     pub category = ObjectType.category;
 
-    pub turn = d => direction := d;
+    pub turn = d => {
+      switch d {
+        | Right | Left => direction := d
+        | _ => ()
+      };
+    };
+
     pub direction = () => direction^;
 
     pub tick = (scene) => {
@@ -43,7 +49,6 @@ module MakeGameObject = (ObjectType: GameObject) => {
         if (above(previous_state, c) || below(previous_state, c)) {
           data.vy = 0.0;
           data.y = current_y;
-          Js.log(c#data().x);
         };
 
         if (right_of(previous_state, c) || left_of(previous_state, c)) {

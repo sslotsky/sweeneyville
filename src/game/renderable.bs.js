@@ -60,8 +60,12 @@ function MakeGameObject(ObjectType) {
               }),
             turn,
             (function (self$1, d) {
-                self$1[direction$1][0] = d;
-                return /* () */0;
+                if (d === 3 || d === 2) {
+                  self$1[direction$1][0] = d;
+                  return /* () */0;
+                } else {
+                  return /* () */0;
+                }
               }),
             direction,
             (function (self$1, _) {
@@ -92,12 +96,11 @@ function MakeGameObject(ObjectType) {
                   init[/* height */4],
                   init[/* width */5]
                 ];
-                var colliders = Curry._2(env$1[0][/* colliders */4], self$1, Caml_oo_curry.js2(-746899837, 3, scene, /* () */0));
+                var colliders = Curry._2(env$1[0][/* colliders */4], self$1, Caml_oo_curry.js2(-746899837, 2, scene, /* () */0));
                 return $$Array.iter((function (c) {
                               if (Core$Sweenyville.above(previous_state, c) || Core$Sweenyville.below(previous_state, c)) {
                                 self$1[data$1][/* vy */3] = 0.0;
                                 self$1[data$1][/* y */1] = current_y;
-                                console.log(Caml_oo_curry.js2(-1033677270, 4, c, /* () */0)[/* x */0]);
                               }
                               if (Core$Sweenyville.right_of(previous_state, c) || Core$Sweenyville.left_of(previous_state, c)) {
                                 self$1[data$1][/* vx */2] = 0.0;
@@ -180,8 +183,8 @@ function MakeGameObject(ObjectType) {
 }
 
 function next_coordinates(scene, position, speed) {
-  var new_x = Pervasives.max(Caml_oo_curry.js2(761282246, 6, scene, /* () */0), Pervasives.min(Caml_oo_curry.js2(-405516197, 5, scene, /* () */0), position[0] + speed[0]));
-  var new_y = Pervasives.max(Caml_oo_curry.js2(-963970092, 8, scene, /* () */0), Pervasives.min(Caml_oo_curry.js2(-146710358, 7, scene, /* () */0), position[1] + speed[1]));
+  var new_x = Pervasives.max(Caml_oo_curry.js2(761282246, 4, scene, /* () */0), Pervasives.min(Caml_oo_curry.js2(-405516197, 3, scene, /* () */0), position[0] + speed[0]));
+  var new_y = Pervasives.max(Caml_oo_curry.js2(-963970092, 6, scene, /* () */0), Pervasives.min(Caml_oo_curry.js2(-146710358, 5, scene, /* () */0), position[1] + speed[1]));
   return /* tuple */[
           new_x,
           new_y

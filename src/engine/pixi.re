@@ -135,7 +135,12 @@ module App = {
   let renderer = getRenderer;
   let width = width;
   let height = height;
+
   let addSprite = (app, sprite) => {
     addSprite(getStage(app), sprite);
+  };
+
+  let addSprites = (app, sprites) => {
+    Array.iter(s => addSprite(app, s), sprites);
   };
 };

@@ -8,33 +8,33 @@ var CamlinternalOO = require("bs-platform/lib/js/camlinternalOO.js");
 var $$class = CamlinternalOO.create_table([
       "position",
       "tick",
-      "follow",
-      "clampX",
-      "clampY",
-      "unclampX",
-      "unclampY"
+      "unclamp_x",
+      "unclamp_y",
+      "clamp_x",
+      "clamp_y",
+      "follow"
     ]);
 
 var ids = CamlinternalOO.new_methods_variables($$class, [
-      "unclampY",
-      "unclampX",
+      "unclamp_y",
+      "unclamp_x",
       "track",
       "tick",
       "position",
       "follow",
       "focus",
-      "clampY",
-      "clampX"
+      "clamp_y",
+      "clamp_x"
     ], [
       "focused",
       "position",
-      "clampedX",
-      "clampedY"
+      "clamped_x",
+      "clamped_y"
     ]);
 
-var unclampY = ids[0];
+var unclamp_y = ids[0];
 
-var unclampX = ids[1];
+var unclamp_x = ids[1];
 
 var track = ids[2];
 
@@ -46,17 +46,17 @@ var follow = ids[5];
 
 var focus = ids[6];
 
-var clampY = ids[7];
+var clamp_y = ids[7];
 
-var clampX = ids[8];
+var clamp_x = ids[8];
 
 var focused = ids[9];
 
 var position$1 = ids[10];
 
-var clampedX = ids[11];
+var clamped_x = ids[11];
 
-var clampedY = ids[12];
+var clamped_y = ids[12];
 
 CamlinternalOO.set_methods($$class, /* array */[
       follow,
@@ -76,24 +76,24 @@ CamlinternalOO.set_methods($$class, /* array */[
       (function (self$1, _) {
           return self$1[position$1][0];
         }),
-      clampX,
+      clamp_x,
       (function (self$1, _) {
-          self$1[clampedX][0] = /* true */1;
+          self$1[clamped_x][0] = /* true */1;
           return /* () */0;
         }),
-      clampY,
+      clamp_y,
       (function (self$1, _) {
-          self$1[clampedY][0] = /* true */1;
+          self$1[clamped_y][0] = /* true */1;
           return /* () */0;
         }),
-      unclampX,
+      unclamp_x,
       (function (self$1, _) {
-          self$1[clampedX][0] = /* false */0;
+          self$1[clamped_x][0] = /* false */0;
           return /* () */0;
         }),
-      unclampY,
+      unclamp_y,
       (function (self$1, _) {
-          self$1[clampedY][0] = /* false */0;
+          self$1[clamped_y][0] = /* false */0;
           return /* () */0;
         }),
       focus,
@@ -105,13 +105,13 @@ CamlinternalOO.set_methods($$class, /* array */[
       (function (self$1, c) {
           var match = self$1[position$1][0];
           var d = Caml_oo_curry.js2(-1033677270, 1, c, /* () */0);
-          var match$1 = self$1[clampedX][0];
-          var newX = match$1 !== 0 ? match[0] : d[/* x */0];
-          var match$2 = self$1[clampedY][0];
-          var newY = match$2 !== 0 ? match[1] : d[/* y */1];
+          var match$1 = self$1[clamped_x][0];
+          var new_x = match$1 !== 0 ? match[0] : d[/* x */0];
+          var match$2 = self$1[clamped_y][0];
+          var new_y = match$2 !== 0 ? match[1] : d[/* y */1];
           self$1[position$1][0] = /* tuple */[
-            newX,
-            newY
+            new_x,
+            new_y
           ];
           return /* () */0;
         })
@@ -124,8 +124,8 @@ function obj_init() {
       0.0,
       0.0
     ]];
-  self[clampedX] = [/* false */0];
-  self[clampedY] = [/* false */0];
+  self[clamped_x] = [/* false */0];
+  self[clamped_y] = [/* false */0];
   return self;
 }
 
